@@ -2,8 +2,8 @@
 
 body {
     padding: 2rem;
-    background-color: rgb(32, 32, 32);
     color: #fff;
+    background-color: rgb(32, 32, 32);
 }
 
 button {
@@ -14,4 +14,8 @@ button {
     color: #fff;
     font-weight: 600;
     cursor: pointer;
+}
+
+a {
+    color: aqua;
 }

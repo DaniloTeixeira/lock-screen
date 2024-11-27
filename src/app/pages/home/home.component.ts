@@ -6,7 +6,7 @@ import { RouterLink } from "@angular/router";
   standalone: true,
   imports: [RouterLink],
   template: `
-    <button routerLink="/lock-screen">Go to Lock Screen</button>
+    <a routerLink="/lock-screen">Go to Lock Screen</a>
     <h1>Home works!</h1>
   `,
 })
