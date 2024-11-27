@@ -42,25 +42,18 @@ export class LockScreenComponent implements OnDestroy {
 
     if (el?.requestFullscreen) {
       el?.requestFullscreen();
-      alert("Fullscreen");
     } else if (el?.mozRequestFullScreen) {
       /* Firefox */
       el?.mozRequestFullScreen();
-      alert("Firefox");
     } else if (el?.webkitRequestFullscreen) {
       /* Chrome, Safari and Opera */
       el?.webkitRequestFullscreen();
-      alert("Chrome, Safari and Opera");
     } else if (el?.msRequestFullscreen) {
       /* IE/Edge */
       el?.msRequestFullscreen();
-      alert("IE/Edge");
     }
 
     if (this.platform.ANDROID || this.platform.IOS) {
-      alert(
-        `Lock screen - ANDROID:${this.platform.ANDROID} - IOS:${this.platform.IOS}`
-      );
       this.lockOrientation();
     }
   }
