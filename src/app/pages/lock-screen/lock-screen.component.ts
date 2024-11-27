@@ -2,11 +2,9 @@ import { Platform } from "@angular/cdk/platform";
 import { DOCUMENT } from "@angular/common";
 import { Component, OnDestroy, inject } from "@angular/core";
 import { RouterModule } from "@angular/router";
+import screenfull from "screenfull";
 
 @Component({
-  host: {
-    "window:orientationchange": "onOrientationChange($event)",
-  },
   selector: "app-lock-screen",
   standalone: true,
   imports: [RouterModule],
@@ -21,12 +19,19 @@ export class LockScreenComponent implements OnDestroy {
   private platform = inject(Platform);
   private document: any = inject(DOCUMENT);
 
+  constructor() {
+    if (screenfull.isEnabled) {
+      screenfull.request();
+    }
+  }
+
   ngOnInit(): void {
-    this.openFullscreen();
+    // this.openFullscreen();
   }
 
   ngOnDestroy(): void {
-    this.closeFullscreen();
+    // this.closeFullscreen();
+    screenfull.exit();
   }
 
   private lockOrientation() {
