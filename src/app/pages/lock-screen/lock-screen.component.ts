@@ -22,6 +22,7 @@ export class LockScreenComponent implements OnDestroy {
   constructor() {
     if (screenfull.isEnabled) {
       screenfull.request();
+      this.lockOrientation();
     }
   }
 
@@ -32,6 +33,7 @@ export class LockScreenComponent implements OnDestroy {
   ngOnDestroy(): void {
     // this.closeFullscreen();
     screenfull.exit();
+    this.unlockOrientation();
   }
 
   private lockOrientation() {
