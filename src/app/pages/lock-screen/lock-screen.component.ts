@@ -24,18 +24,10 @@ export class LockScreenComponent implements OnDestroy {
 
   ngOnInit(): void {
     this.openFullscreen();
-
-    if (this.platform.ANDROID || this.platform.IOS) {
-      this.lockOrientation();
-    }
   }
 
   ngOnDestroy(): void {
     this.closeFullscreen();
-
-    if (this.platform.ANDROID || this.platform.IOS) {
-      this.unlockOrientation();
-    }
   }
 
   private lockOrientation() {
@@ -61,6 +53,10 @@ export class LockScreenComponent implements OnDestroy {
       /* IE/Edge */
       this.el?.msRequestFullscreen();
     }
+
+    if (this.platform.ANDROID || this.platform.IOS) {
+      this.lockOrientation();
+    }
   }
   /* Close fullscreen */
   private closeFullscreen() {
@@ -75,6 +71,10 @@ export class LockScreenComponent implements OnDestroy {
     } else if (this.document?.msExitFullscreen) {
       /* IE/Edge */
       this.document?.msExitFullscreen();
+    }
+
+    if (this.platform.ANDROID || this.platform.IOS) {
+      this.unlockOrientation();
     }
   }
 }
