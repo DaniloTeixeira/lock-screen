@@ -18,7 +18,6 @@ import { RouterModule } from "@angular/router";
   `,
 })
 export class LockScreenComponent implements OnDestroy {
-  private el: any;
   private platform = inject(Platform);
   private document: any = inject(DOCUMENT);
 
@@ -39,22 +38,29 @@ export class LockScreenComponent implements OnDestroy {
   }
 
   private openFullscreen() {
-    this.el = this.document?.documentElement;
+    const el = this.document?.documentElement;
 
-    if (this.el?.requestFullscreen) {
-      this.el?.requestFullscreen();
-    } else if (this.el?.mozRequestFullScreen) {
+    if (el?.requestFullscreen) {
+      el?.requestFullscreen();
+      alert("Fullscreen");
+    } else if (el?.mozRequestFullScreen) {
       /* Firefox */
-      this.el?.mozRequestFullScreen();
-    } else if (this.el?.webkitRequestFullscreen) {
+      el?.mozRequestFullScreen();
+      alert("Firefox");
+    } else if (el?.webkitRequestFullscreen) {
       /* Chrome, Safari and Opera */
-      this.el?.webkitRequestFullscreen();
-    } else if (this.el?.msRequestFullscreen) {
+      el?.webkitRequestFullscreen();
+      alert("Chrome, Safari and Opera");
+    } else if (el?.msRequestFullscreen) {
       /* IE/Edge */
-      this.el?.msRequestFullscreen();
+      el?.msRequestFullscreen();
+      alert("IE/Edge");
     }
 
     if (this.platform.ANDROID || this.platform.IOS) {
+      alert(
+        `Lock screen - ANDROID:${this.platform.ANDROID} - IOS:${this.platform.IOS}`
+      );
       this.lockOrientation();
     }
   }
