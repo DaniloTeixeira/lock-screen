@@ -1,6 +1,6 @@
 import { Platform } from "@angular/cdk/platform";
 import { DOCUMENT } from "@angular/common";
-import { Component, Inject, OnDestroy, inject } from "@angular/core";
+import { Component, OnDestroy, inject } from "@angular/core";
 import { RouterModule } from "@angular/router";
 
 @Component({
@@ -15,14 +15,12 @@ import { RouterModule } from "@angular/router";
       <a routerLink="../">Back to App</a>
       <h1>Lock Screen works!</h1>
     </div>
-
-    <button (click)="openFullscreen()">click</button>
   `,
 })
 export class LockScreenComponent implements OnDestroy {
   private el: any;
   private platform = inject(Platform);
-  private document = Inject(DOCUMENT);
+  private document: any = inject(DOCUMENT);
 
   ngOnInit(): void {
     this.openFullscreen();
