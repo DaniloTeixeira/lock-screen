@@ -30,7 +30,7 @@ export class LockScreenComponent implements OnDestroy {
   }
 
   private lockOrientation() {
-    (window.screen.orientation as any)?.lock("landscape");
+    (window.screen.orientation as any)?.lock("landscape-primary");
   }
 
   private unlockOrientation() {
