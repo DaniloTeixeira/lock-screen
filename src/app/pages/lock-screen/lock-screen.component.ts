@@ -12,7 +12,7 @@ import { RouterModule } from "@angular/router";
   imports: [RouterModule],
   template: `
     <div>
-      <a routerLink="../">Back to App</a>
+      <a routerLink="../">Back to Home</a>
       <h1>Lock Screen works!</h1>
     </div>
   `,
