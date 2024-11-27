@@ -18,6 +18,9 @@ import { RouterModule } from "@angular/router";
       <button>Lock on landscape</button>
     </div> -->
   `,
+  styles: `
+   
+  `,
 })
 export class LockScreenComponent {
   @HostListener("window:orientationchange", ["$event"])

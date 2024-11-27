@@ -19,3 +19,10 @@ button {
 a {
     color: aqua;
 }
+
+@media only screen and (orientation: portrait) {
+    body {
+      height: 100dvh;
+      transform: rotate(90deg);
+    }
+  }
