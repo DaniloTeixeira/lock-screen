@@ -26,19 +26,27 @@ export class LockScreenComponent implements OnDestroy {
     this.openFullscreen();
 
     if (this.platform.ANDROID || this.platform.IOS) {
-      this.blockOrientation();
+      this.lockOrientation();
     }
   }
 
   ngOnDestroy(): void {
     this.closeFullscreen();
+
+    if (this.platform.ANDROID || this.platform.IOS) {
+      this.unlockOrientation();
+    }
   }
 
-  private blockOrientation() {
+  private lockOrientation() {
     (window.screen.orientation as any)?.lock("landscape");
   }
 
-  openFullscreen() {
+  private unlockOrientation() {
+    (window.screen.orientation as any)?.unlock();
+  }
+
+  private openFullscreen() {
     this.el = this.document?.documentElement;
 
     if (this.el?.requestFullscreen) {
@@ -55,7 +63,7 @@ export class LockScreenComponent implements OnDestroy {
     }
   }
   /* Close fullscreen */
-  closeFullscreen() {
+  private closeFullscreen() {
     if (this.document?.exitFullscreen) {
       this.document?.exitFullscreen();
     } else if (this.document?.mozCancelFullScreen) {
