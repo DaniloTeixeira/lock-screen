@@ -5,9 +5,6 @@ import { RouterLink } from "@angular/router";
   selector: "app-home",
   standalone: true,
   imports: [RouterLink],
-  template: `
-    <a routerLink="/lock-screen">Go to Lock Screen</a>
-    <h1>Home works!</h1>
-  `,
+  template: ` <a routerLink="/lock-screen">Go to Lock Screen</a> `,
 })
 export class HomeComponent {}

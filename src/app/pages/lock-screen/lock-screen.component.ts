@@ -1,6 +1,5 @@
-import { Platform } from "@angular/cdk/platform";
-import { DOCUMENT } from "@angular/common";
-import { Component, OnDestroy, inject } from "@angular/core";
+// import { Platform } from "@angular/cdk/platform";
+import { Component, OnDestroy } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import screenfull from "screenfull";
 
@@ -11,14 +10,14 @@ import screenfull from "screenfull";
   template: `
     <div>
       <a routerLink="../">Back to Home</a>
-      <h1>Lock Screen works!</h1>
     </div>
+    <h3 class="landscape-warn-info">
+      For the best experience, please rotate your device to landscape mode.
+    </h3>
   `,
+  styleUrl: "./lock-screen.component.scss",
 })
 export class LockScreenComponent implements OnDestroy {
-  private platform = inject(Platform);
-  private document: any = inject(DOCUMENT);
-
   constructor() {
     if (screenfull.isEnabled) {
       screenfull.request();
@@ -39,44 +38,4 @@ export class LockScreenComponent implements OnDestroy {
   private unlockOrientation() {
     (window.screen.orientation as any)?.unlock();
   }
-
-  // private openFullscreen() {
-  //   const el = this.document?.documentElement;
-
-  //   if (el?.requestFullscreen) {
-  //     el?.requestFullscreen();
-  //   } else if (el?.mozRequestFullScreen) {
-  //     /* Firefox */
-  //     el?.mozRequestFullScreen();
-  //   } else if (el?.webkitRequestFullscreen) {
-  //     /* Chrome, Safari and Opera */
-  //     el?.webkitRequestFullscreen();
-  //   } else if (el?.msRequestFullscreen) {
-  //     /* IE/Edge */
-  //     el?.msRequestFullscreen();
-  //   }
-
-  //   if (this.platform.ANDROID || this.platform.IOS) {
-  //     this.lockOrientation();
-  //   }
-  // }
-  // /* Close fullscreen */
-  // private closeFullscreen() {
-  //   if (this.document?.exitFullscreen) {
-  //     this.document?.exitFullscreen();
-  //   } else if (this.document?.mozCancelFullScreen) {
-  //     /* Firefox */
-  //     this.document?.mozCancelFullScreen();
-  //   } else if (this.document?.webkitExitFullscreen) {
-  //     /* Chrome, Safari and Opera */
-  //     this.document?.webkitExitFullscreen();
-  //   } else if (this.document?.msExitFullscreen) {
-  //     /* IE/Edge */
-  //     this.document?.msExitFullscreen();
-  //   }
-
-  //   if (this.platform.ANDROID || this.platform.IOS) {
-  //     this.unlockOrientation();
-  //   }
-  // }
 }
