@@ -1,7 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
 body {
-    padding: 2rem;
     color: #fff;
     background-color: rgb(32, 32, 32);
 }
@@ -19,9 +18,3 @@ button {
 a {
     color: aqua;
 }
-
-@media only screen and (orientation: portrait) {
-    body {
-      transform: rotate(90deg);
-    }
-  }
