@@ -1,7 +1,6 @@
-import { Component, inject } from "@angular/core";
-import { RouterModule } from "@angular/router";
-// import { auditTime, distinctUntilChanged, fromEvent, map } from "rxjs";
 import { Platform } from "@angular/cdk/platform";
+import { Component, HostListener } from "@angular/core";
+import { RouterModule } from "@angular/router";
 
 @Component({
   host: {
@@ -21,25 +20,14 @@ import { Platform } from "@angular/cdk/platform";
   `,
 })
 export class LockScreenComponent {
-  private platform = inject(Platform);
-
-  constructor() {
-    if (this.platform.ANDROID || this.platform.IOS) {
-      (screen.orientation as any)?.lock("landscape");
-    }
-
-    // fromEvent(window, "resize")
-    //   .pipe(
-    //     map((event) => (event.target as Window).innerWidth),
-    //     distinctUntilChanged(),
-    //     auditTime(500)
-    //   )
-    //   .subscribe((value: number) => {
-    //     console.log("Size:", value);
-    //   });
+  @HostListener("window:orientationchange", ["$event"])
+  onOrientationChange(event: Event) {
+    event.preventDefault();
   }
 
-  onOrientationChange(event: any) {
-    console.log(event, this.platform.IOS, this.platform.ANDROID);
+  constructor(private platform: Platform) {
+    if (this.platform.ANDROID || this.platform.IOS) {
+      (screen.orientation as any).lock("landscape");
+    }
   }
 }
