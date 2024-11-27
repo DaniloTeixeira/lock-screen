@@ -1,6 +1,6 @@
 import { Platform } from "@angular/cdk/platform";
 import { DOCUMENT } from "@angular/common";
-import { Component, Inject, inject } from "@angular/core";
+import { Component, Inject, OnDestroy, inject } from "@angular/core";
 import { RouterModule } from "@angular/router";
 
 @Component({
@@ -17,31 +17,51 @@ import { RouterModule } from "@angular/router";
     </div>
   `,
 })
-export class LockScreenComponent {
-  private elem: any;
+export class LockScreenComponent implements OnDestroy {
+  private el: any;
   private platform = inject(Platform);
+  private document = Inject(DOCUMENT);
 
-  constructor(@Inject(DOCUMENT) private document: any) {}
   ngOnInit(): void {
-    this.elem = this.document.documentElement;
+    this.el = this.document.documentElement;
     this.openFullscreen();
-  }
-  openFullscreen() {
-    if (this.elem.requestFullscreen) {
-      this.elem.requestFullscreen();
-    } else if (this.elem.mozRequestFullScreen) {
-      /* Firefox */
-      this.elem.mozRequestFullScreen();
-    } else if (this.elem.webkitRequestFullscreen) {
-      /* Chrome, Safari and Opera */
-      this.elem.webkitRequestFullscreen();
-    } else if (this.elem.msRequestFullscreen) {
-      /* IE/Edge */
-      this.elem.msRequestFullscreen();
-    }
 
     if (this.platform.ANDROID || this.platform.IOS) {
-      (window.screen.orientation as any)?.lock("landscape");
+      this.blockOrientation();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.closeFullscreen();
+  }
+
+  private openFullscreen(): void {
+    const requestFullscreen =
+      this.el.requestFullscreen ||
+      this.el.mozRequestFullScreen || // Para Firefox
+      this.el.webkitRequestFullscreen || // Para Chrome, Safari, Opera
+      this.el.msRequestFullscreen; // Para IE/Edge
+
+    if (requestFullscreen) {
+      requestFullscreen.call(this.el);
+    }
+
+    this.blockOrientation();
+  }
+
+  private closeFullscreen(): void {
+    const exitFullscreen =
+      this.el.exitFullscreen ||
+      this.el.mozCancelFullScreen || // Para Firefox
+      this.el.webkitExitFullscreen || // Para Chrome, Safari, Opera
+      this.el.msExitFullscreen; // Para IE/Edge
+
+    if (exitFullscreen) {
+      exitFullscreen.call(this.el);
+    }
+  }
+
+  private blockOrientation() {
+    (window.screen.orientation as any)?.lock("landscape");
   }
 }
